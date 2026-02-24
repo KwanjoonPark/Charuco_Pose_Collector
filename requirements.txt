@@ -1,0 +1,24 @@
+# Core dependencies
+opencv-python>=4.7
+numpy
+
+# Data processing
+pandas
+
+# Deep learning (for SAM segmentation)
+torch
+torchvision
+
+# SAM (Segment Anything Model)
+segment-anything        # SAM1: pip install git+https://github.com/facebookresearch/segment-anything.git
+sam2                    # SAM2: pip install sam2
+
+# Background removal
+rembg
+pillow
+
+# ZeroMQ (for real-time client)
+pyzmq
+
+# ROS packages (install via apt, not pip)
+# sudo apt install ros-noetic-cv-bridge ros-noetic-sensor-msgs python3-rosbag
