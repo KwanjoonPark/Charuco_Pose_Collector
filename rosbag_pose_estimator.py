@@ -297,6 +297,12 @@ def process_bag(bag_path, output_csv, show_video=True, save_images_on_success=Fa
                                   cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
                         cv2.putText(display_image, f"Roll: {roll:.2f} deg", (10, 120),
                                   cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
+                        cv2.putText(display_image, f"X: {x*100:.2f}cm", (10, 150),
+                                  cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
+                        cv2.putText(display_image, f"Y: {y*100:.2f}cm", (10, 180),
+                                  cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
+                        cv2.putText(display_image, f"Z: {z*100:.2f}cm", (10, 210),
+                                  cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
 
                         # Blue dot: ChArUco board origin
                         cv2.circle(display_image, charuco_origin_pixel, 5, (255, 0, 0), -1)
@@ -322,7 +328,7 @@ def process_bag(bag_path, output_csv, show_video=True, save_images_on_success=Fa
                         f"{pitch:.2f}", f"{yaw:.2f}", f"{roll:.2f}",
                         f"{x_cm:.2f}", f"{y_cm:.2f}", f"{z_cm:.2f}"
                     ])
-                    print(f"[{frame_count}/{total_frames}] ✅ Success (Distance: {marker_dist_cm:.2f}cm)")
+                    print(f"[{frame_count}/{total_frames}] ✅ Success (Distance: {marker_dist_cm:.2f}cm, X: {x_cm:.2f}, Y: {y_cm:.2f}, Z: {z_cm:.2f})")
 
                     if save_images_on_success:
                         image_filename = os.path.join(frames_save_dir, f"frame_{frame_count:05d}.jpg")
