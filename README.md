@@ -17,6 +17,11 @@ ChArUco 마커를 이용한 6자유도(6-DoF) 포즈 추정 시스템입니다. 
 
 ### 소프트웨어
 ```bash
+# 가상환경 생성 및 활성화
+python -m venv venv
+source venv/bin/activate
+
+# Python 패키지 설치
 pip install -r requirements.txt
 
 # ROS 패키지 (ROS Noetic/Melodic)
