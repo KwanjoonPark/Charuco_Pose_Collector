@@ -7,18 +7,23 @@ import csv
 from datetime import datetime
 from sensor_msgs.msg import Image, CameraInfo
 from cv_bridge import CvBridge, CvBridgeError
+from charuco_config import (
+    CHARUCO_SQUARES_X, CHARUCO_SQUARES_Y,
+    CHARUCO_SQUARE_LENGTH, CHARUCO_MARKER_LENGTH,
+    ARUCO_DICT_TYPE
+)
 
 class CharucoPoseEstimator:
     def __init__(self):
         rospy.init_node('charuco_pose_estimator', anonymous=True)
         
-        # 1. ChArUco Marker Infomation (User Settings)
+        # 1. ChArUco Marker Infomation (charuco_config.py에서 import)
 
-        self.SQUARES_X = 5
-        self.SQUARES_Y = 4
-        self.SQUARE_LENGTH = 0.02  # 2.0 cm -> 0.02 m (OpenCV uses meters internally)
-        self.MARKER_LENGTH = 0.015  # 1.5 cm -> 0.015 m
-        self.ARUCO_DICT = aruco.getPredefinedDictionary(aruco.DICT_4X4_250)
+        self.SQUARES_X = CHARUCO_SQUARES_X
+        self.SQUARES_Y = CHARUCO_SQUARES_Y
+        self.SQUARE_LENGTH = CHARUCO_SQUARE_LENGTH
+        self.MARKER_LENGTH = CHARUCO_MARKER_LENGTH
+        self.ARUCO_DICT = aruco.getPredefinedDictionary(ARUCO_DICT_TYPE)
 
         # ArUco Detector and Parameters (OpenCV version compatibility)
         self.use_new_aruco_api = False

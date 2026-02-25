@@ -7,22 +7,16 @@ import argparse
 import os
 from cv_bridge import CvBridge
 from sensor_msgs.msg import Image, CameraInfo
-
-# ==========================================
-# Configuration: ChArUco Board Parameters
-# ==========================================
-SQUARES_X = 4          # Number of squares in X direction (width)
-SQUARES_Y = 5          # Number of squares in Y direction (height)
-SQUARE_LENGTH = 0.020  # Square side length: 20mm
-MARKER_LENGTH = 0.015  # ArUco marker side length: 15mm
-ARUCO_DICT_TYPE = aruco.DICT_4X4_250
-
-# Offset from ChArUco board origin to target point (e.g., hole center)
-# Units: meters (m)
-OFFSET_X = 0.15   # Positive = right direction
-OFFSET_Y = 0.03   # Positive = up direction
-OFFSET_Z = 0.03   # Positive = forward direction (0 if on the same plane)
-# ==========================================
+from charuco_config import (
+    CHARUCO_SQUARES_X as SQUARES_X,
+    CHARUCO_SQUARES_Y as SQUARES_Y,
+    CHARUCO_SQUARE_LENGTH as SQUARE_LENGTH,
+    CHARUCO_MARKER_LENGTH as MARKER_LENGTH,
+    ARUCO_DICT_TYPE,
+    CHARUCO_OFFSET_X as OFFSET_X,
+    CHARUCO_OFFSET_Y as OFFSET_Y,
+    CHARUCO_OFFSET_Z as OFFSET_Z,
+)
 
 def get_offset_matrix(x, y, z):
     """
@@ -147,10 +141,10 @@ def process_bag(bag_path, output_csv, show_video=True, save_images_on_success=Fa
                 if use_new_api:
                     # OpenCV 4.7+ API
                     charuco_corners, charuco_ids, corners, ids = charuco_detector.detectBoard(gray)
-                    if charuco_corners is not None and len(charuco_corners) >= 4:
+                    if charuco_corners is not None and len(charuco_corners) >= 6:
                         log_detail = "ChArUco corners found but pose estimation failed."
                         obj_points, img_points = board.matchImagePoints(charuco_corners, charuco_ids)
-                        valid, rvec, tvec = cv2.solvePnP(obj_points, img_points, camera_matrix, dist_coeffs, flags=cv2.SOLVEPNP_ITERATIVE)
+                        valid, rvec, tvec = cv2.solvePnP(obj_points, img_points, camera_matrix, dist_coeffs)
                     else:
                         valid = False
                         if ids is not None and len(ids) > 0:
