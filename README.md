@@ -134,7 +134,7 @@ CHARUCO_OFFSET_Z = 0.0          # 카메라에서 멀어지는 방향 (+)
 
 ### ArUco 딕셔너리
 
-기본값은 `DICT_4X4_250` (4x4 비트 패턴, 250개 고유 마커)입니다. 딕셔너리를 변경하면 보드를 새로 인쇄해야 합니다.
+기본값은 `DICT_4X4_250` (4x4 비트 패턴, 250개 고유 마커)입니다. 딕셔너리를 변경하면 보드를 새로 [인쇄](https://calib.io/pages/camera-calibration-pattern-generator?srsltid=AfmBOopM-KLhHJsXPOlY8UTjyiZvlsGv5ykiF3jDc4y5Fy6GlDmQbKiU)해야 합니다.
 
 ## 출력 데이터
 
