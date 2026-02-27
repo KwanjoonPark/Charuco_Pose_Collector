@@ -1,4 +1,4 @@
-# 6-DoF Pose Estimation
+# Charuco Pose Collector
 
 ChArUco 마커를 이용한 6자유도(6-DoF) 포즈 추정 시스템입니다. Intel RealSense 카메라와 ROS를 사용하여 실시간 또는 배치 처리로 3D 위치(x, y, z)와 회전(pitch, yaw, roll)을 계산합니다.
 
@@ -51,6 +51,9 @@ sudo apt install ros-noetic-cv-bridge ros-noetic-sensor-msgs python3-rosbag
 ```bash
 python charuco_pose_estimator.py
 ```
+
+![영상](https://github.com/user-attachments/assets/1e14fe36-4215-416c-8abd-13e6596e2b96)
+
 - 's' 키: 현재 프레임과 포즈 데이터 저장
 - Ctrl+C: 종료
 
