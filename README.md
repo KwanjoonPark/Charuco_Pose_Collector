@@ -52,7 +52,7 @@ sudo apt install ros-noetic-cv-bridge ros-noetic-sensor-msgs python3-rosbag
 python charuco_pose_estimator.py
 ```
 - 's' 키: 현재 프레임과 포즈 데이터 저장
-- 'q' 키: 종료
+- Ctrl+C: 종료
 
 ### 2. ROS Bag 배치 처리
 
@@ -72,6 +72,7 @@ ChArUco 보드를 사용하여 카메라 포즈를 추정하고 FoundationPose `
 - 'e' 키: 연속 녹화 종료
 - 's' 키: 현재 프레임 수동 저장
 - 'z' 키: 마지막 저장 취소 (undo)
+- 'r' 키: 카운터 리셋
 - 'q' 키: 종료
 
 ### 4. RGB + Depth 이미지 캡처

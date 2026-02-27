@@ -3,7 +3,7 @@
 RealSense 카메라로 RGB + Depth 이미지 캡처
 
 사용법:
-    python capture_100_frames.py [--output OUTPUT_DIR] [--frames NUM_FRAMES]
+    python raw_images_collector.py [--output OUTPUT_DIR] [--frames NUM_FRAMES]
 
 키 조작:
     's' 또는 스페이스: 한 장 캡처 (사진 모드)
