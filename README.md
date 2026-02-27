@@ -94,13 +94,51 @@ python raw_images_collector.py [--output OUTPUT_DIR] [--frames NUM_FRAMES]
 
 ### 5. 마커 제거
 
-```bash
-# 단색으로 마커 영역 채우기
-python opencv_charuco_remover/grab_solid.py
+ChArUco 마커를 이미지에서 제거합니다. 두 가지 방식을 제공하며, 입력 이미지에 마커가 감지되어야 동작합니다.
 
-# 인페인팅으로 마커 영역 채우기
+#### grab_solid.py — 단색 채우기
+
+```bash
+python opencv_charuco_remover/grab_solid.py
+```
+
+GrabCut으로 마커 영역 마스크를 생성한 뒤, 마스크 바깥에서 색상을 샘플링하여 단색으로 덮습니다. Gaussian Blur로 경계를 블렌딩하여 자연스럽게 처리합니다.
+
+- 입력: `test_scene/rgb/`
+- 출력: `test_scene/rgb_solid/`
+- 주요 설정 (스크립트 상단):
+
+| 변수 | 기본값 | 설명 |
+|------|--------|------|
+| `MARGIN_RATIO` | 0.6 | GrabCut 영역 마진 비율 |
+| `DILATION_ITERATIONS` | 20 | 마스크 확장 반복 횟수 (흰색 테두리 제거) |
+| `BLUR_KERNEL_SIZE` | (21, 21) | 경계 블렌딩 커널 크기 |
+
+#### grab_inpainting.py — 인페인팅
+
+```bash
 python opencv_charuco_remover/grab_inpainting.py
 ```
+
+GrabCut으로 마커 영역 마스크를 생성한 뒤, OpenCV `inpaint()` (TELEA 알고리즘)으로 주변 색상을 참조하여 채웁니다. 줄무늬 아티팩트 없이 안정적인 결과를 제공합니다.
+
+- 입력: `test_scene/rgb/`
+- 출력: `test_scene/rgb_inpainting/`
+- 주요 설정 (스크립트 상단):
+
+| 변수 | 기본값 | 설명 |
+|------|--------|------|
+| `MARGIN_RATIO` | 0.6 | GrabCut 영역 마진 비율 |
+| `DILATION_ITERATIONS` | 30 | 마스크 확장 반복 횟수 |
+| `INPAINT_RADIUS` | 3 | 인페인팅 참조 반경 (픽셀) |
+
+#### 방식 비교
+
+| | grab_solid | grab_inpainting |
+|---|---|---|
+| 방식 | 단색 채우기 + 블렌딩 | TELEA 인페인팅 |
+| 장점 | 빠름, 균일한 결과 | 주변 텍스처 반영, 자연스러움 |
+| 적합한 경우 | 배경이 단색에 가까울 때 | 배경에 질감/그라데이션이 있을 때 |
 
 ### 6. 세그멘테이션
 
@@ -152,14 +190,18 @@ Timestamp, Image_File, Distance(cm), Pitch(deg), Yaw(deg), Roll(deg), X(cm), Y(c
 4. 오프셋 변환 적용 (마커 → 목표 지점)
 
 ### 마커 제거 (grab_solid.py)
-1. GrabCut으로 마커 영역 마스크 생성
-2. 마스크 외부에서 단일 색상 샘플링
-3. 단색으로 마스크 영역 채우기
-4. Gaussian Blur로 경계 부드럽게 블렌딩
+1. ArUco 마커 코너 검출
+2. GrabCut으로 마커 영역 마스크 생성 (마진 60%, 8회 반복)
+3. 마스크 Dilation으로 흰색 테두리까지 포함 확장
+4. 마스크 바깥 오른쪽 상단에서 단일 색상 샘플링
+5. 단색으로 마스크 영역 채우기
+6. Gaussian Blur로 경계 부드럽게 블렌딩 (Alpha Blending)
 
 ### 마커 제거 (grab_inpainting.py)
-1. GrabCut으로 마커 영역 마스크 생성
-2. OpenCV `inpaint()` (TELEA 알고리즘)으로 주변 색상 참조하여 채우기
+1. ArUco 마커 코너 검출
+2. GrabCut으로 마커 영역 마스크 생성 (마진 60%, 8회 반복)
+3. 마스크 Dilation으로 흰색 테두리까지 포함 확장
+4. OpenCV `inpaint()` (TELEA 알고리즘)으로 주변 색상 참조하여 채우기
 
 ### Edge 기반 세그멘테이션
 1. Canny 엣지 검출 → Morphology Closing → Dilation으로 방파제 생성
