@@ -62,6 +62,8 @@ python charuco_pose_estimator.py
 ```bash
 python rosbag_pose_estimator.py --bag /path/to/file.bag --out pose_data.csv
 ```
+![Charuco_Rosbag](https://github.com/user-attachments/assets/12c6779e-65ee-4c12-8419-1e656bb5d4b4)
+
 bag 파일에서 모든 프레임을 추출하고 포즈를 계산합니다.
 
 ### 3. FoundationPose 데이터 수집
