@@ -2,7 +2,7 @@
 
 ChArUco 마커를 이용한 6자유도(6-DoF) 포즈 추정 시스템입니다. Intel RealSense 카메라와 ROS를 사용하여 실시간 또는 배치 처리로 3D 위치(x, y, z)와 회전(pitch, yaw, roll)을 계산합니다.
 
-<img width="2816" height="1536" alt="flowchart" src="https://github.com/user-attachments/assets/be3f5a63-a2aa-406b-bd33-33c3022d6273" />
+<img width="1820" height="988" alt="flow_capt" src="https://github.com/user-attachments/assets/45171a85-c9dd-4603-b64b-24e341fac175" />
 
 ## 주요 기능
 
